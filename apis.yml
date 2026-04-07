@@ -3,10 +3,10 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/bureau-of-industry-and-security/refs/heads/main/apis.yml
 name: Bureau of Industry and Security
 tags:
+  - Export Controls
   - Federal Government
   - Industries
   - Security
-  - Export Controls
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
@@ -22,8 +22,8 @@ apis:
   - aid: bureau-of-industry-and-security:bureau-of-industry-and-security
     name: Bureau of Industry and Security
     tags:
-      - Federal Government
       - Export Controls
+      - Federal Government
     humanURL: https://www.bis.gov
     properties:
       - url: https://www.bis.gov
