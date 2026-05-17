@@ -11,7 +11,7 @@ tags:
   - Screening Lists
   - Security
 type: Index
-x-type: government
+kind: government
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2024-11-25'
@@ -87,7 +87,7 @@ apis:
 common:
   - type: Website
     url: https://www.bis.gov
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://www.bis.gov/privacy-policy
   - type: Consolidated Screening List
     url: https://www.trade.gov/consolidated-screening-list
