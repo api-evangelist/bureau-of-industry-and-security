@@ -1,0 +1,226 @@
+openapi: 3.1.0
+info:
+  title: Consolidated Screening List (CSL) API
+  version: "1.0"
+  description: |
+    The Consolidated Screening List (CSL) is a consolidation of multiple
+    export screening lists from the U.S. Departments of Commerce, State,
+    and Treasury that companies must check when conducting due diligence
+    on potential trade partners. This API provides programmatic access
+    via the International Trade Administration's developer.trade.gov
+    Data Services Platform.
+
+    Authentication is via a `subscription-key` request header obtained
+    by registering an application on developer.trade.gov.
+  contact:
+    name: ITA Developer Portal
+    url: https://developer.trade.gov/
+  license:
+    name: U.S. Government Work
+    url: https://www.usa.gov/government-works
+servers:
+  - url: https://data.trade.gov/consolidated_screening_list/v1
+    description: Production
+security:
+  - subscriptionKey: []
+tags:
+  - name: Search
+    description: Search the Consolidated Screening List
+paths:
+  /search:
+    get:
+      tags: [Search]
+      summary: Search the Consolidated Screening List
+      description: |
+        Search across all entries on the Consolidated Screening List.
+        Returns matching parties with name, addresses, country, source
+        list, and remarks. Supports fuzzy name matching.
+      operationId: searchCSL
+      parameters:
+        - name: name
+          in: query
+          description: Name of an individual or entity to search for.
+          schema: { type: string }
+        - name: fuzzy_name
+          in: query
+          description: When true, applies fuzzy name matching.
+          schema: { type: boolean, default: false }
+        - name: sources
+          in: query
+          description: Comma-separated list of source list codes (e.g., SDN, EL, DPL).
+          schema: { type: string }
+        - name: types
+          in: query
+          description: Comma-separated list of party types (Individual, Entity, Vessel, Aircraft).
+          schema: { type: string }
+        - name: countries
+          in: query
+          description: Comma-separated list of ISO 3166-1 alpha-2 country codes.
+          schema: { type: string }
+        - name: address
+          in: query
+          description: Street address fragment to search.
+          schema: { type: string }
+        - name: city
+          in: query
+          schema: { type: string }
+        - name: state
+          in: query
+          schema: { type: string }
+        - name: postal_code
+          in: query
+          schema: { type: string }
+        - name: size
+          in: query
+          description: Number of results to return (max 100).
+          schema: { type: integer, default: 10, maximum: 100 }
+        - name: offset
+          in: query
+          description: Result offset for pagination.
+          schema: { type: integer, default: 0 }
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResponse"
+        "401":
+          description: Missing or invalid subscription-key.
+        "429":
+          description: Rate limit exceeded.
+components:
+  securitySchemes:
+    subscriptionKey:
+      type: apiKey
+      in: header
+      name: subscription-key
+      description: Subscription key issued by developer.trade.gov
+  schemas:
+    SearchResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+        sources_used:
+          type: array
+          items:
+            type: object
+            properties:
+              source:
+                type: string
+              source_last_updated:
+                type: string
+                format: date-time
+              import_rate:
+                type: string
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Result"
+    Result:
+      type: object
+      properties:
+        id:
+          type: string
+        source:
+          type: string
+        entity_number:
+          type: integer
+          nullable: true
+        type:
+          type: string
+        name:
+          type: string
+        alt_names:
+          type: array
+          items: { type: string }
+        addresses:
+          type: array
+          items:
+            $ref: "#/components/schemas/Address"
+        federal_register_notice:
+          type: string
+          nullable: true
+        start_date:
+          type: string
+          format: date
+          nullable: true
+        end_date:
+          type: string
+          format: date
+          nullable: true
+        standard_order:
+          type: string
+          nullable: true
+        license_requirement:
+          type: string
+          nullable: true
+        license_policy:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        call_sign:
+          type: string
+          nullable: true
+        vessel_type:
+          type: string
+          nullable: true
+        gross_tonnage:
+          type: string
+          nullable: true
+        gross_registered_tonnage:
+          type: string
+          nullable: true
+        vessel_flag:
+          type: string
+          nullable: true
+        vessel_owner:
+          type: string
+          nullable: true
+        remarks:
+          type: string
+          nullable: true
+        source_list_url:
+          type: string
+          format: uri
+        source_information_url:
+          type: string
+          format: uri
+        ids:
+          type: array
+          items:
+            type: object
+            properties:
+              type: { type: string }
+              number: { type: string }
+              country: { type: string }
+              issue_date: { type: string, format: date }
+              expiration_date: { type: string, format: date }
+        nationalities:
+          type: array
+          items: { type: string }
+        citizenships:
+          type: array
+          items: { type: string }
+        dates_of_birth:
+          type: array
+          items: { type: string }
+        places_of_birth:
+          type: array
+          items: { type: string }
+    Address:
+      type: object
+      properties:
+        address:
+          type: string
+        city:
+          type: string
+        state_or_province:
+          type: string
+        postal_code:
+          type: string
+        country:
+          type: string
