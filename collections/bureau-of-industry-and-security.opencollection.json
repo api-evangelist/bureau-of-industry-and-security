@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Consolidated Screening List (CSL) API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "subscription-key",
+      "value": "{{subscription-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search the Consolidated Screening List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.trade.gov/consolidated_screening_list/v1/search",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name of an individual or entity to search for."
+              },
+              {
+                "name": "fuzzy_name",
+                "value": "",
+                "type": "query",
+                "description": "When true, applies fuzzy name matching."
+              },
+              {
+                "name": "sources",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of source list codes (e.g., SDN, EL, DPL)."
+              },
+              {
+                "name": "types",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of party types (Individual, Entity, Vessel, Aircraft)."
+              },
+              {
+                "name": "countries",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of ISO 3166-1 alpha-2 country codes."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "Street address fragment to search."
+              },
+              {
+                "name": "city",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "postal_code",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return (max 100)."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Result offset for pagination."
+              }
+            ]
+          },
+          "docs": "Search across all entries on the Consolidated Screening List.\nReturns matching parties with name, addresses, country, source\nlist, and remarks. Supports fuzzy name matching.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
