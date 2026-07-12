@@ -85,6 +85,10 @@ apis:
       STELA (System for Tracking Export License Applications) allows applicants
       to check the status of export license applications submitted to BIS.
 common:
+  - type: DomainSecurity
+    url: security/bureau-of-industry-and-security-domain-security.yml
+  - type: Authentication
+    url: authentication/bureau-of-industry-and-security-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/bureau-of-industry-and-security-u-s-department-of-commerce
   - type: Website

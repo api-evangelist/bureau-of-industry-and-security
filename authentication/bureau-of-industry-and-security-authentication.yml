@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/bureau-of-industry-and-security-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: subscriptionKey
+  type: apiKey
+  in: header
+  parameter: subscription-key
+  description: Subscription key issued by developer.trade.gov
+  sources:
+  - openapi/bureau-of-industry-and-security-openapi.yml
