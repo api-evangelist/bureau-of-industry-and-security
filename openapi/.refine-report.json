@@ -1,0 +1,14 @@
+{
+  "provider": "bureau-of-industry-and-security",
+  "sources": [
+    "bureau-of-industry-and-security-search-api-openapi.yml"
+  ],
+  "outputs": [
+    "bureau-of-industry-and-security-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
