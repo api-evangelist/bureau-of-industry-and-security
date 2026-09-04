@@ -38,17 +38,18 @@ accessModel:
   try_now: true
   public: false
   label: Freemium · Self-serve signup
-  confidence: high
+  confidence: medium
   source:
   - plans
   - authentication
-  generated: '2026-07-22'
+  - security
+  generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bureau-of-industry-and-security.png
 access: 3rd-Party
 created: '2024-11-25'
 modified: '2026-04-21'
-position: Consumer
+position: Consuming
 description: >-
   The Bureau of Industry and Security (BIS), a division of the U.S. Department
   of Commerce, advances U.S. national security, foreign policy, and economic
