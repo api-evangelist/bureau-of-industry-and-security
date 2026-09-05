@@ -1,0 +1,46 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  registry.npmjs.org search API, pypi.org/pypi/<pkg>/json, rubygems.org/api/v1, and the
+  ITA Data Services Platform developer portal (https://developer.trade.gov/) — searched
+  2026-09-05.
+summary:
+  official_count: 0
+  community_count: 2
+  note: >-
+    NEITHER the Bureau of Industry and Security NOR the International Trade Administration
+    (which operates the Consolidated Screening List API) publishes a first-party client
+    library on any registry. The ITA developer portal ships documentation and an
+    interactive console only; it links no SDK. The two entries below are third-party
+    community clients, both abandoned — the newest release is from February 2020, more
+    than four years before the current API platform's own documentation was last revised.
+    Because there is no first-party SDK, this record carries NO `SDKs` pointer in apis.yml.
+packages: []
+community_packages:
+  - name: consolidated_screening_list
+    registry: rubygems
+    official: false
+    url: https://rubygems.org/gems/consolidated_screening_list
+    repository: https://github.com/andrewmcodes/consolidated_screening_list
+    version: 0.0.2
+    published: '2020-02-06'
+    description: A Ruby client for Trade.gov's Consolidated Screening List.
+    note: >-
+      Third-party. Last released 2020-02-06 at 0.0.2, and it predates nothing in the
+      current API — but it is pinned to a pre-migration surface, so treat it as abandoned.
+  - name: import_export
+    registry: rubygems
+    official: false
+    url: https://rubygems.org/gems/import_export
+    repository: https://github.com/benbalter/impot_export
+    version: 0.0.1
+    published: '2015-09-13'
+    description: A Ruby client for Trade.gov's Consolidated Screening List.
+    note: >-
+      Third-party, single 0.0.1 release from 2015 — written against the api.trade.gov
+      gateway that ITA retired on 2021-12-06. Non-functional against the current API.
+registries_checked:
+  - { registry: npm, query: 'consolidated screening list / trade.gov', first_party_hits: 0 }
+  - { registry: pypi, query: 'consolidated-screening-list, trade-gov, csl-api, bis-api', first_party_hits: 0 }
+  - { registry: rubygems, query: 'consolidated screening list', first_party_hits: 0 }
+  - { registry: docs, query: 'https://developer.trade.gov/ — no SDK section published', first_party_hits: 0 }

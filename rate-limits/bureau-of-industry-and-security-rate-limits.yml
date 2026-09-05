@@ -3,102 +3,61 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: Bureau of Industry and Security
 providerId: bureau-of-industry-and-security
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://developer.trade.gov/service-level-agreement (HTTP 200, 2026-09-05) ·
+  live response headers from https://data.trade.gov/consolidated_screening_list/v1/search
+  and the bulk distributions, observed 2026-09-05
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Compliance
-  - Export Controls
-  - Federal Government
-  - Industries
-  - National Security
-  - Screening Lists
-  - Security
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Bureau of Industry and Security API surface.
-  Captures per-tier quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold
-  values to be replaced with published provider limits.
+modified: '2026-09-05'
+supersedes: >-
+  A 2026-05-04 bulk-sweep scaffold that asserted a 10-requests-per-minute free tier and a
+  full set of X-RateLimit-* response headers. THE PROVIDER PUBLISHES NEITHER. The invented
+  numbers and headers have been removed.
+description: >-
+  Throttling exists and is acknowledged by the provider, but no number and no runtime signal
+  is published. An agent integrating this API cannot compute a budget or a backoff from
+  anything the provider says or sends.
+limit_count: 0
+limits: []
+published_statement:
+  quote: >-
+    "ITA has instituted throttling levels on our APIs. Subscribers may find the individual
+    throttling levels on the documentation pages of the specific APIs."
+  source: https://developer.trade.gov/service-level-agreement
+  verified: '2026-09-05'
+  finding: >-
+    The referral is a dead end for a machine. The per-API documentation page
+    (https://developer.trade.gov/api-details#api=consolidated-screening-list) is an Azure API
+    Management single-page app; it renders client-side and publishes no throttling number
+    that an HTTP client can read. So the SLA points at documentation that does not carry the
+    figure it promises.
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  limit: null
+  remaining: null
+  reset: null
+  retryAfter: null
+  policy: null
+  observed: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header appears on any response observed on
+    2026-09-05 — not on the 401 challenge, not on the 404, and not on the 206 bulk download.
+    The only diagnostic header returned is `x-azure-ref`, a correlation id.
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
-limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Consolidated Screening List (CSL) API
-      - SNAP-R Export License Application System
-      - STELA Export License Tracking
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Consolidated Screening List (CSL) API
-      - SNAP-R Export License Application System
-      - STELA Export License Tracking
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Consolidated Screening List (CSL) API
-      - SNAP-R Export License Application System
-      - STELA Export License Tracking
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Consolidated Screening List (CSL) API
-      - SNAP-R Export License Application System
-      - STELA Export License Tracking
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Consolidated Screening List (CSL) API
-      - SNAP-R Export License Application System
-      - STELA Export License Tracking
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+  note: >-
+    429 is declared in the contract's response set for both operations. It could not be
+    observed anonymously because unauthenticated requests are rejected at 401 first.
+mitigation:
+  note: >-
+    The bulk distributions
+    (https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.json,
+    .csv, .tsv) are unauthenticated, refreshed daily and carry a strong ETag plus
+    Last-Modified. A conditional daily fetch of one 33 MB file replaces an unbounded stream
+    of per-name /search calls for most screening workloads, and is the only rate-limit
+    strategy this provider's published surface actually supports.
+gap_for_provider:
+  - Publish the throttling numbers the SLA already promises are documented.
+  - >-
+    Emit RFC 9331-style RateLimit-Limit / RateLimit-Remaining / RateLimit-Reset headers, or
+    at minimum Retry-After on 429, so clients can back off without guessing.

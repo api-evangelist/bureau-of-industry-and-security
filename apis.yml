@@ -48,7 +48,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bureau-of-industry-and-security.png
 access: 3rd-Party
 created: '2024-11-25'
-modified: '2026-04-21'
+modified: '2026-09-05'
 position: Consuming
 description: >-
   The Bureau of Industry and Security (BIS), a division of the U.S. Department
@@ -72,12 +72,18 @@ apis:
   - Sanctions
   - Screening
   humanURL: https://www.trade.gov/consolidated-screening-list
-  baseURL: https://api.trade.gov/gateway/v1/consolidated_screening_list
+  baseURL: https://data.trade.gov/consolidated_screening_list/v1
   properties:
   - url: https://www.trade.gov/consolidated-screening-list
     type: Documentation
-  - url: https://api.trade.gov/gateway/v1/consolidated_screening_list/search
+  - url: https://data.trade.gov/consolidated_screening_list/v1/search
     type: DataAPI
+  - url: openapi/_original/bureau-of-industry-and-security-csl-apim-export.yaml
+    type: OpenAPI
+  - url: https://developer.trade.gov/api-details#api=consolidated-screening-list&operation=search
+    type: APIReference
+  - url: https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.json
+    type: X-BulkData
   description: >-
     The Consolidated Screening List (CSL) API consolidates export screening lists from the Departments
     of Commerce, State, and Treasury. It includes the Entity List, Denied Persons List, Unverified List
@@ -134,12 +140,16 @@ apis:
   name: Bureau of Industry and Security Search API
   description: Search the Consolidated Screening List
   humanURL: https://www.trade.gov/consolidated-screening-list
-  baseURL: https://api.trade.gov/gateway/v1/consolidated_screening_list
+  baseURL: https://data.trade.gov/consolidated_screening_list/v1
   tags:
   - Search
   properties:
   - type: OpenAPI
     url: openapi/bureau-of-industry-and-security-search-api-openapi.yml
+  - type: Overlay
+    url: overlays/bureau-of-industry-and-security-search-api-overlay.yaml
+  - type: APIReference
+    url: https://developer.trade.gov/api-details#api=consolidated-screening-list&operation=search
 common:
   - type: AgenticAccess
     url: agentic-access/bureau-of-industry-and-security-agentic-access.yml
@@ -156,10 +166,90 @@ common:
   - type: Consolidated Screening List
     url: https://www.trade.gov/consolidated-screening-list
   - type: Export Administration Regulations
-    url: https://www.bis.gov/regulations/export-administration-regulations-ear
+    url: https://www.bis.gov/regulations/ear
   - type: Commerce Control List
-    url: https://www.bis.gov/regulations/commerce-control-list-ccl
+    url: https://www.bis.gov/licensing/classify-your-item
+  - type: DeveloperPortal
+    url: https://developer.trade.gov/
+  - type: SignUp
+    url: https://developer.trade.gov/signup
+  - type: Support
+    url: https://www.bis.gov/about-bis/contact-us
+  - type: Blog
+    url: https://www.bis.gov/news-updates
+  - type: Console
+    url: https://developer.trade.gov/api-details#api=consolidated-screening-list&operation=search
+  - type: ChangeLog
+    url: https://developer.trade.gov/api-changelog
+  - type: Deprecation
+    url: https://developer.trade.gov/csl-api-is-changing
+  - type: ServiceLevelAgreement
+    url: https://developer.trade.gov/service-level-agreement
+  - type: APICatalog
+    url: https://www.bis.gov/data.json
+  - type: Lifecycle
+    url: lifecycle/bureau-of-industry-and-security-lifecycle.yml
+  - type: Conventions
+    url: conventions/bureau-of-industry-and-security-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bureau-of-industry-and-security-problem-types.yml
+  - type: Conformance
+    url: conformance/bureau-of-industry-and-security-conformance.yml
+  - type: DataModel
+    url: data-model/bureau-of-industry-and-security-data-model.yml
+  - type: Packages
+    url: packages/bureau-of-industry-and-security-packages.yml
+  - type: LLMsTxt
+    url: llms/bureau-of-industry-and-security-llms.txt
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: X-MCPServerCandidate
+    url: mcp/bureau-of-industry-and-security-mcp.yml
+  - type: RateLimits
+    url: rate-limits/bureau-of-industry-and-security-rate-limits.yml
+  - type: Plans
+    url: plans/bureau-of-industry-and-security-plans-pricing.yml
+  - type: FinOps
+    url: finops/bureau-of-industry-and-security-finops.yml
+  - type: Sandbox
+    url: sandbox/bureau-of-industry-and-security-sandbox.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 specificationVersion: '0.23'
+x-enrichment:
+  date: '2026-09-05'
+  status: enriched
+  artifacts_added: 17
+  pass: local-v3
+x-coverage:
+  state: covered
+  reason: null
+  detail: >-
+    Contract discovery beat the JS-rendered docs host: the real first-party OpenAPI for the
+    Consolidated Screening List is exportable anonymously from the International Trade
+    Administration's Azure API Management portal, and BIS serves its own DCAT-US 3.0 catalog
+    at https://www.bis.gov/data.json.
+  evidence:
+    - url: https://developer.trade.gov/developer/apis/consolidated-screening-list?api-version=2022-04-01-preview&export=true&format=openapi
+      status: 200
+    - url: https://www.bis.gov/data.json
+      status: 200
+    - url: https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.json
+      status: 206
+  checked: '2026-09-05'
+x-operator-note:
+  operated_by: International Trade Administration (ITA), U.S. Department of Commerce
+  contributing_agency: Bureau of Industry and Security (BIS), U.S. Department of Commerce
+  callable_host: data.trade.gov
+  basis: >-
+    The one callable API in this profile, the Consolidated Screening List API, is OPERATED by
+    the International Trade Administration on data.trade.gov. The Bureau of Industry and
+    Security is a contributing agency: BIS owns four of the thirteen consolidated source
+    lists (DPL, EL, MEU, UVL), the API's own `sources` enum names them under "Department of
+    Commerce - Bureau of Industry and Security (BIS)", and BIS lists this dataset - and only
+    this dataset - in its own DCAT-US 3.0 catalog at https://www.bis.gov/data.json. That is
+    the basis on which the contract is profiled here; the callable host belongs to ITA.
+  bis_operated_systems: >-
+    SNAP-R (https://snapr.bis.doc.gov/) and STELA are BIS-operated, but both are human-facing
+    web applications with no published machine interface.

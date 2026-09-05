@@ -1,0 +1,78 @@
+generated: '2026-09-05'
+method: probed
+source: >-
+  Live anonymous HTTPS probes of the named /.well-known/ path list on every host this
+  record knows: the BIS registrable domain and www, the ITA developer/docs host, and
+  every API baseURL and OpenAPI servers[] host.
+note: >-
+  NO WELL-KNOWN DOCUMENT IS SERVED ANYWHERE. Every named path 404s on www.bis.gov,
+  data.trade.gov, developer.trade.gov and www.trade.gov. snapr.bis.doc.gov answers HTTP 200
+  to EVERY /.well-known/ path with the same SNAP-R HTML login shell — a catch-all, not a
+  document — so it is recorded as a miss, not a hit. api.trade.gov could not be probed at
+  all: its TLS certificate has expired (see security/bureau-of-industry-and-security-domain-security.yml).
+  Because nothing real was served, this file carries NO WellKnown and NO SecurityTxt pointer
+  in apis.yml. The absence is the measurement.
+hosts:
+  - host: www.bis.gov
+    documents:
+      - { path: /.well-known/security.txt, status: 404, file: null }
+      - { path: /.well-known/openid-configuration, status: 404, file: null }
+      - { path: /.well-known/oauth-authorization-server, status: 404, file: null }
+      - { path: /.well-known/api-catalog, status: 404, file: null }
+      - { path: /.well-known/ai-plugin.json, status: 404, file: null }
+      - { path: /.well-known/agent-card.json, status: 404, file: null }
+      - { path: /.well-known/agent.json, status: 404, file: null }
+      - { path: /llms.txt, status: 404, file: null }
+  - host: bis.gov
+    note: apex does not answer on 443 (connection times out); only www.bis.gov serves.
+    documents:
+      - { path: /.well-known/security.txt, status: 0, file: null }
+  - host: api.trade.gov
+    note: >-
+      Retired CSL gateway host. TLS handshake fails — certificate has expired — so no
+      /.well-known/ path could be probed.
+    documents:
+      - { path: /.well-known/security.txt, status: 0, file: null }
+  - host: data.trade.gov
+    documents:
+      - { path: /.well-known/security.txt, status: 404, file: null }
+      - { path: /.well-known/openid-configuration, status: 404, file: null }
+      - { path: /.well-known/oauth-authorization-server, status: 404, file: null }
+      - { path: /.well-known/api-catalog, status: 404, file: null }
+      - { path: /.well-known/ai-plugin.json, status: 404, file: null }
+      - { path: /.well-known/agent-card.json, status: 404, file: null }
+      - { path: /.well-known/agent.json, status: 404, file: null }
+      - { path: /llms.txt, status: 404, file: null }
+  - host: developer.trade.gov
+    documents:
+      - { path: /.well-known/security.txt, status: 404, file: null }
+      - { path: /.well-known/openid-configuration, status: 404, file: null }
+      - { path: /.well-known/oauth-authorization-server, status: 404, file: null }
+      - { path: /.well-known/api-catalog, status: 404, file: null }
+      - { path: /.well-known/ai-plugin.json, status: 404, file: null }
+      - { path: /.well-known/agent-card.json, status: 404, file: null }
+      - { path: /.well-known/agent.json, status: 404, file: null }
+      - { path: /llms.txt, status: 404, file: null }
+  - host: www.trade.gov
+    documents:
+      - { path: /.well-known/security.txt, status: 404, file: null }
+      - { path: /.well-known/openid-configuration, status: 404, file: null }
+      - { path: /.well-known/oauth-authorization-server, status: 404, file: null }
+      - { path: /.well-known/api-catalog, status: 404, file: null }
+      - { path: /.well-known/ai-plugin.json, status: 404, file: null }
+      - { path: /.well-known/agent-card.json, status: 404, file: null }
+      - { path: /.well-known/agent.json, status: 404, file: null }
+      - { path: /llms.txt, status: 404, file: null }
+  - host: snapr.bis.doc.gov
+    note: >-
+      SPA catch-all — every path below returned HTTP 200 with the identical SNAP-R HTML
+      login shell, not a document. Recorded as a miss.
+    documents:
+      - { path: /.well-known/security.txt, status: 200, file: null, verdict: html-shell-not-a-document }
+      - { path: /.well-known/openid-configuration, status: 200, file: null, verdict: html-shell-not-a-document }
+      - { path: /.well-known/oauth-authorization-server, status: 200, file: null, verdict: html-shell-not-a-document }
+      - { path: /.well-known/api-catalog, status: 200, file: null, verdict: html-shell-not-a-document }
+      - { path: /.well-known/ai-plugin.json, status: 200, file: null, verdict: html-shell-not-a-document }
+      - { path: /.well-known/agent-card.json, status: 200, file: null, verdict: html-shell-not-a-document }
+      - { path: /.well-known/agent.json, status: 200, file: null, verdict: html-shell-not-a-document }
+      - { path: /llms.txt, status: 200, file: null, verdict: html-shell-not-a-document }

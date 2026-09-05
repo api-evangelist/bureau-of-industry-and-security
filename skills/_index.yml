@@ -1,0 +1,39 @@
+generated: '2026-09-05'
+method: generated
+source: >-
+  openapi/bureau-of-industry-and-security-search-api-openapi.yml ·
+  conventions/bureau-of-industry-and-security-conventions.yml ·
+  errors/bureau-of-industry-and-security-problem-types.yml ·
+  rate-limits/bureau-of-industry-and-security-rate-limits.yml ·
+  https://www.bis.gov/data.json
+description: >-
+  Packaged Agent Skills for the surfaces in this profile. Every operationId referenced below
+  exists in the repository's OpenAPI; no operation is invented.
+skills:
+  - file: bureau-of-industry-and-security-screen-a-party.md
+    name: screen-a-party-against-the-consolidated-screening-list
+    api: Consolidated Screening List (CSL) API
+    operations: [searchCSL]
+  - file: bureau-of-industry-and-security-bulk-screening-feed.md
+    name: load-the-consolidated-screening-list-in-bulk
+    api: Consolidated Screening List — bulk distributions
+    operations: []
+    note: >-
+      Grounded in the three distribution URLs BIS declares in its own DCAT-US catalog, not in
+      an OpenAPI operation — there is no contract for a static file download.
+deliberate_omissions:
+  - surface: 'GET /sources (operationId listCSLSources)'
+    reason: >-
+      Real and documented, but it returns list-import metadata rather than a task an agent
+      performs. It is covered inside the screening skill's guidance instead of being
+      packaged as a flow of its own.
+  - surface: SNAP-R export licence applications
+    reason: >-
+      BIS operates SNAP-R at https://snapr.bis.doc.gov/ but publishes no API for it. Writing
+      a skill would mean scripting a human login flow against a federal licensing system.
+      Not done, deliberately.
+  - surface: STELA export licence status tracking
+    reason: Same as SNAP-R — a human web application with no published machine interface.
+personal_data_note: >-
+  The Consolidated Screening List contains records about real individuals. No skill in this
+  directory reproduces a record, and both skills carry an explicit data-handling section.

@@ -1,0 +1,89 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://www.bis.gov/data.json (fetched 2026-09-05, HTTP 200) ·
+  https://developer.trade.gov/service-level-agreement ·
+  openapi/bureau-of-industry-and-security-search-api-openapi.yml ·
+  live HTTPS probes recorded in security/bureau-of-industry-and-security-domain-security.yml
+description: >-
+  Cross-cutting and domain standards this provider's own published surface declares.
+  Reward-only: standards this market has no use for are not counted against BIS.
+domain_standard:
+  id: dcat-us
+  name: DCAT-US 3.0 (Project Open Data / resources.data.gov)
+  conforms: true
+  declared_in_contract: true
+  evidence: >-
+    https://www.bis.gov/data.json declares
+    conformsTo: {"@type":"Standard","title":"DCAT-US 3.0",
+    "identifier":"https://resources.data.gov/dcat-us/3.0.0"} and carries a "@type":"Catalog"
+    with one dcat dataset (the Consolidated Screening List) and three typed distributions.
+    Fetched 2026-09-05, HTTP 200. Verbatim copy (with the named steward's personal contact
+    redacted) saved at conformance/bureau-of-industry-and-security-data-json.json.
+  note: >-
+    This is the government regime's own shortlist standard (`dcat` in scoring.yml
+    industry_regulatory.government.standards) and BIS declares it in a machine-readable
+    document it serves itself — not in marketing prose.
+conformance:
+  - id: dcat-us-3.0
+    conforms: true
+    evidence: https://www.bis.gov/data.json — conformsTo DCAT-US 3.0, HTTP 200, 2026-09-05
+  - id: project-open-data
+    conforms: true
+    evidence: >-
+      The /data.json path itself is the Project Open Data / OMB M-13-13 public data listing
+      convention; BIS serves it at https://www.bis.gov/data.json (HTTP 200, 2026-09-05).
+  - id: openapi-3
+    conforms: true
+    evidence: >-
+      The International Trade Administration publishes the Consolidated Screening List as
+      OpenAPI 3.0.1 through its Azure API Management portal —
+      https://developer.trade.gov/developer/apis/consolidated-screening-list?api-version=2022-04-01-preview&export=true&format=openapi
+      (HTTP 200, 2026-09-05). Saved verbatim at
+      openapi/_original/bureau-of-industry-and-security-csl-apim-export.yaml.
+  - id: api-key-auth
+    conforms: true
+    evidence: >-
+      RFC 7235 challenge observed live on
+      https://data.trade.gov/consolidated_screening_list/v1/search — HTTP 401 with
+      `WWW-Authenticate: AzureApiManagementKey realm="...",name="subscription-key",type="header"`
+      (2026-09-05).
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      No oauth2 or openIdConnect securityScheme in the contract; no
+      /.well-known/oauth-authorization-server or /.well-known/openid-configuration on any
+      host (all 404 — see well-known/bureau-of-industry-and-security-well-known.yml).
+  - id: oidc
+    conforms: false
+    evidence: Same probe set as oauth2 — every discovery document 404s.
+  - id: rfc9457
+    conforms: false
+    evidence: >-
+      Error bodies are Azure API Management's `{"statusCode":..,"message":".."}` envelope,
+      not application/problem+json. Observed live 2026-09-05 on 401 and 404 responses.
+  - id: pagination
+    conforms: true
+    evidence: >-
+      Offset/limit pagination via `offset` (max 1000) and `size` (max 50) query parameters,
+      documented in ITA's own API Management parameter metadata for operation `search`.
+  - id: idempotency
+    conforms: false
+    evidence: >-
+      Not applicable rather than failed — the published surface is read-only (two GET
+      operations, no write surface). See conventions/bureau-of-industry-and-security-conventions.yml.
+  - id: fedramp
+    conforms: unknown
+    evidence: >-
+      No trust centre, no certification page and no FedRAMP marketplace reference found on
+      www.bis.gov or developer.trade.gov (probe-security-programs.py, 2026-09-05: trust=none).
+      The platform runs on Azure Government-adjacent commercial Azure API Management; no
+      authorization boundary is published to the public web.
+  - id: hsts
+    conforms: true
+    evidence: >-
+      www.bis.gov and www.trade.gov both serve HSTS with max-age 31536000 (probed 2026-09-05).
+  - id: dnssec
+    conforms: partial
+    evidence: >-
+      trade.gov is DNSSEC-signed; bis.gov is NOT (probed 2026-09-05).

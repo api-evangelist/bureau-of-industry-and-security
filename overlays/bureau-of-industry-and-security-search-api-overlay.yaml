@@ -1,0 +1,86 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements — Consolidated Screening List (CSL) API
+  version: 1.1.0
+x-provenance:
+  generated: '2026-09-05'
+  method: generated
+  source: >-
+    Captures the enhancements API Evangelist applied to
+    openapi/bureau-of-industry-and-security-search-api-openapi.yml on 2026-09-05, every one
+    of them read from a first-party ITA source (the Azure API Management operations and
+    schema metadata behind https://developer.trade.gov/, and the anonymously readable CSL
+    bulk download). The original document is never mutated; this overlay is the record of
+    what changed and why.
+extends: ../openapi/bureau-of-industry-and-security-search-api-openapi.yml
+actions:
+  - target: $.info
+    description: >-
+      Stamp operator attribution. The API is operated by the International Trade
+      Administration; BIS is a contributing agency that owns four of the source lists.
+    update:
+      x-operator:
+        operated_by: International Trade Administration (ITA), U.S. Department of Commerce
+        contributing_agency: Bureau of Industry and Security (BIS), U.S. Department of Commerce
+  - target: $.paths['/sources']
+    description: >-
+      Add the second real operation. ITA's API Management declares two operations for this
+      API — `search` and `sources` — and the profile previously carried only /search.
+    update:
+      get:
+        operationId: listCSLSources
+  - target: $.components.securitySchemes
+    description: >-
+      Add the query-string variant of the subscription key. The ITA APIM export declares
+      both apiKeyHeader and apiKeyQuery; the profile previously carried only the header.
+    update:
+      subscriptionKeyQuery:
+        type: apiKey
+        in: query
+        name: subscription-key
+  - target: $.paths['/search'].get.parameters[?(@.name=='size')]
+    description: >-
+      Correct the documented maximum. The profile previously claimed max 100; ITA's own
+      parameter description states "up to a maximum of 50".
+    update:
+      schema:
+        type: integer
+        maximum: 50
+  - target: $.paths['/search'].get.parameters[?(@.name=='offset')]
+    description: >-
+      Add the published ceiling. ITA states the offset "cannot be greater than 1000".
+    update:
+      schema:
+        type: integer
+        maximum: 1000
+  - target: $.paths['/search'].get.parameters[?(@.name=='sources')]
+    description: >-
+      Bind the source-list enum published by ITA, which is also the exact place BIS appears
+      in this contract — DPL, EL, MEU and UVL are the Bureau of Industry and Security lists.
+    update:
+      schema:
+        type: string
+        enum: [CAP, CMIC, DPL, DTC, EL, FSE, ISN, MBS, MEU, PLC, SDN, SSI, UVL]
+  - target: $.paths['/search'].get.parameters[?(@.name=='types')]
+    description: Bind the party-type enum published by ITA.
+    update:
+      schema:
+        type: string
+        enum: [Aircraft, Entity, Individual, Vessel]
+  - target: $.paths['/search'].get.parameters[?(@.name=='full_address')]
+    description: >-
+      Add the full_address parameter, declared by ITA and absent from the profile. When
+      present it overrides address, city, state and postal_code.
+    update:
+      in: query
+      schema:
+        type: string
+  - target: $.components.schemas.Result.properties
+    description: >-
+      Add `programs`, observed on records in the first-party bulk download and absent from
+      the profile's response schema.
+    update:
+      programs:
+        type: array
+        items:
+          type: string

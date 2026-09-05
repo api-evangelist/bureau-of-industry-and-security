@@ -1,0 +1,26 @@
+generated: '2026-09-05'
+method: searched
+source: https://developer.trade.gov/api-changelog
+scheme: undated-web-page
+current_version: v1
+machine_readable: false
+probed: '2026-09-05'
+http_status: 200
+page_title: "APIs: Changelog - ITA's Data Services Platform"
+entries: []
+note: >-
+  The International Trade Administration publishes an API changelog page and it is live
+  (HTTP 200, title "APIs: Changelog"). Its entries could not be read: developer.trade.gov is
+  an Azure API Management single-page application that renders content client-side, so an
+  HTTP client — or an agent — receives the shell and no entries. `entries: []` here means
+  "checked, nothing machine-readable to record", not "no changes were published".
+  BIS itself keeps no API changelog; its site-level change page is
+  https://www.bis.gov/website-updates (HTTP 200) and it covers website content, not APIs.
+related_dated_events:
+  - date: '2021-12-06'
+    source: https://developer.trade.gov/csl-api-is-changing
+    breaking: true
+    summary: >-
+      Legacy CSL gateway on api.trade.gov retired at 17:00 EST with no extensions. New
+      portal, new subscription keys and client code changes required. Recorded in full in
+      lifecycle/bureau-of-industry-and-security-lifecycle.yml.

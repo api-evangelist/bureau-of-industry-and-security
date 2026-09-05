@@ -1,0 +1,56 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://developer.trade.gov/api-details#api=consolidated-screening-list&operation=search ·
+  https://www.trade.gov/data-visualization/csl-search ·
+  https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.json
+description: >-
+  There is no sandbox, no test mode and no test data set — the Consolidated Screening List
+  has one environment, production, and one key type. What DOES exist is a way to exercise
+  the API and the data before writing any code, which is what this artifact records.
+test_environment:
+  exists: false
+  note: >-
+    No separate sandbox host, no test-vs-live key prefixes, no test clock, no fixtures and
+    no trigger tooling. A key issued at developer.trade.gov is a production key against
+    production data. Do NOT expect a mode switch.
+console:
+  exists: true
+  type: interactive-try-it
+  url: https://developer.trade.gov/api-details#api=consolidated-screening-list&operation=search
+  probed: '2026-09-05'
+  status: 200
+  auth_required_to_call: true
+  note: >-
+    Azure API Management's built-in try-it console, on the API detail page. The provider's
+    own portal description is "Discover APIs, learn how to use them, try them out
+    interactively, and sign up to acquire keys." Calls from the console still consume a real
+    subscription key against production.
+public_search_ui:
+  exists: true
+  url: https://www.trade.gov/data-visualization/csl-search
+  probed: '2026-09-05'
+  status: 200
+  auth_required: false
+  note: >-
+    A no-key web search over the same dataset. Useful for confirming expected results by
+    hand before integrating, and for support conversations where the caller has no key yet.
+unauthenticated_dataset:
+  exists: true
+  urls:
+    - https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.json
+    - https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.csv
+    - https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.tsv
+  probed: '2026-09-05'
+  status: 206
+  note: >-
+    The most practical stand-in for a sandbox: the full dataset is downloadable with no key,
+    refreshed daily, so a client's matching and screening logic can be developed and
+    regression-tested entirely offline before a key is ever requested.
+test_values:
+  published: false
+  note: >-
+    The provider publishes no magic test identifiers, no safe example parties and no
+    guaranteed-match fixtures. NONE ARE INVENTED HERE. Any test value must be taken from the
+    live dataset, and because entries of type `Individual` are real people, test fixtures
+    built from this data should prefer `Entity` or `Vessel` records.

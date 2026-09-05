@@ -1,0 +1,35 @@
+# VERBATIM first-party export. Fetched 2026-09-05 from the International Trade
+# Administration's Azure API Management developer portal:
+#   https://developer.trade.gov/developer/apis/consolidated-screening-list?api-version=2022-04-01-preview&export=true&format=openapi
+# method: searched   source: developer.trade.gov (ITA Data Services Platform)
+# OPERATOR NOTE: the Consolidated Screening List API is OPERATED by the International
+# Trade Administration (ITA). The Bureau of Industry and Security is a CONTRIBUTING
+# agency — BIS owns four of the consolidated source lists (DPL, EL, MEU, UVL), which
+# the API's own `sources` parameter documentation names under
+# "Department of Commerce - Bureau of Industry and Security (BIS)".
+# APIM exports this API with `paths: {}` because the operations live in the version
+# set; the real operations were read from
+#   .../apis/consolidated-screening-list/operations?api-version=2022-04-01-preview
+# and are captured in openapi/bureau-of-industry-and-security-search-api-openapi.yml.
+openapi: 3.0.1
+info:
+  title: Consolidated Screening List
+  description: 'The Consolidated Screening List API consolidates export screening lists of the Departments of Commerce, State and the Treasury into a single data feed as an aid to industry in conducting electronic screens of potential parties to regulated transactions.In the event that a company, entity or person on the list appears to match a party potentially involved in an export transaction, additional due diligence should be conducted before proceeding. There may be a strict export prohibition, requirement for seeking a license application, evaluation of the end-use or user to ensure it does not result in an activity prohibited by any U.S. export regulations, or other restriction. For more information view the informational video from the National Customs Brokers. The API only contains active entities on the list. For historical research, please reference the sources directly.'
+  version: v1
+servers:
+  - url: https://data.trade.gov/consolidated_screening_list
+paths: { }
+components:
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: subscription-key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - { }
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]

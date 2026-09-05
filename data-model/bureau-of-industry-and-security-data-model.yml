@@ -1,0 +1,120 @@
+generated: '2026-09-05'
+method: derived
+source: >-
+  openapi/bureau-of-industry-and-security-search-api-openapi.yml ($ref graph) corroborated
+  against the field set observed in the first-party bulk distribution
+  https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.json
+  (probed 2026-09-05).
+description: >-
+  The Consolidated Screening List is a flat, read-only reference dataset: one root
+  collection of restricted parties, each carrying repeating value objects. There are no
+  cross-entity foreign keys and no writable resources.
+entities:
+  - name: SearchResponse
+    kind: envelope
+    description: Result envelope for GET /search.
+    fields:
+      - { name: total, type: integer, description: Total matching entries. }
+      - { name: sources_used, type: array, description: Per-source import metadata for the lists searched. }
+      - { name: results, type: array, description: The matching restricted parties. }
+    relationships:
+      - { type: has_many, target: Result, via: results }
+      - { type: has_many, target: SourceUsed, via: sources_used }
+  - name: Result
+    kind: entity
+    description: >-
+      One restricted party — an individual, entity, vessel or aircraft — on one of the
+      consolidated source lists.
+    identifier:
+      field: id
+      note: >-
+        Opaque per-record id. `entity_number` is the number assigned by the originating
+        list, is NOT unique across sources, and must not be used as a primary key.
+    fields:
+      - { name: id, type: string }
+      - { name: source, type: string, description: Human-readable name of the originating list. }
+      - { name: entity_number, type: string, nullable: true }
+      - { name: type, type: string, enum: [Aircraft, Entity, Individual, Vessel] }
+      - { name: name, type: string }
+      - { name: alt_names, type: array }
+      - { name: programs, type: array, description: Sanctions or control programs the entry falls under. }
+      - { name: title, type: string, nullable: true }
+      - { name: federal_register_notice, type: string, nullable: true }
+      - { name: start_date, type: date, nullable: true }
+      - { name: end_date, type: date, nullable: true }
+      - { name: standard_order, type: string, nullable: true }
+      - { name: license_requirement, type: string, nullable: true }
+      - { name: license_policy, type: string, nullable: true }
+      - { name: call_sign, type: string, nullable: true }
+      - { name: vessel_type, type: string, nullable: true }
+      - { name: gross_tonnage, type: string, nullable: true }
+      - { name: gross_registered_tonnage, type: string, nullable: true }
+      - { name: vessel_flag, type: string, nullable: true }
+      - { name: vessel_owner, type: string, nullable: true }
+      - { name: remarks, type: string, nullable: true }
+      - { name: source_list_url, type: uri }
+      - { name: source_information_url, type: uri }
+      - { name: nationalities, type: array }
+      - { name: citizenships, type: array }
+      - { name: dates_of_birth, type: array }
+      - { name: places_of_birth, type: array }
+    relationships:
+      - { type: has_many, target: Address, via: addresses }
+      - { type: has_many, target: Identifier, via: ids }
+      - { type: belongs_to, target: SourceList, via: source, note: 'By name, not by key — there is no source id field.' }
+    personal_data:
+      contains: true
+      note: >-
+        Records of type `Individual` carry personal data by design — names, dates of birth,
+        places of birth, nationalities, citizenships and identity document numbers. This is
+        a published U.S. Government restricted-party list and the data is public, but it is
+        person data: do not copy individual records into examples, documentation or agent
+        prompts. No record is reproduced anywhere in this repository.
+  - name: Address
+    kind: value-object
+    fields:
+      - { name: address, type: string }
+      - { name: city, type: string }
+      - { name: state_or_province, type: string, note: 'Named `state` in the bulk distribution.' }
+      - { name: postal_code, type: string }
+      - { name: country, type: string, description: ISO 3166-1 alpha-2. }
+  - name: Identifier
+    kind: value-object
+    description: An identity or registration document attached to a party.
+    fields:
+      - { name: type, type: string, description: 'e.g. Passport, National ID, SWIFT/BIC.' }
+      - { name: number, type: string }
+      - { name: country, type: string }
+      - { name: issue_date, type: date }
+      - { name: expiration_date, type: date }
+  - name: SourceUsed
+    kind: value-object
+    description: Import metadata for one source list, returned alongside search results.
+    fields:
+      - { name: source, type: string }
+      - { name: source_last_updated, type: date-time }
+      - { name: import_rate, type: string }
+  - name: SourceList
+    kind: reference
+    description: >-
+      One of the thirteen consolidated lists. Enumerated in the `sources` query parameter
+      and listed by GET /sources.
+    values:
+      - { code: DPL, name: Denied Persons List, agency: 'Commerce — Bureau of Industry and Security' }
+      - { code: EL, name: Entity List, agency: 'Commerce — Bureau of Industry and Security' }
+      - { code: MEU, name: Military End User List, agency: 'Commerce — Bureau of Industry and Security' }
+      - { code: UVL, name: Unverified List, agency: 'Commerce — Bureau of Industry and Security' }
+      - { code: ISN, name: Nonproliferation Sanctions, agency: 'State — International Security and Non-Proliferation' }
+      - { code: DTC, name: ITAR Debarred, agency: 'State — Directorate of Defense Trade Controls' }
+      - { code: CAP, name: Correspondent Account or Payable-Through Account Sanctions (CAPTA), agency: 'Treasury — OFAC' }
+      - { code: CMIC, name: Non-SDN Chinese Military-Industrial Complex Companies List, agency: 'Treasury — OFAC' }
+      - { code: FSE, name: Foreign Sanctions Evaders, agency: 'Treasury — OFAC' }
+      - { code: MBS, name: Non-SDN Menu-Based Sanctions List, agency: 'Treasury — OFAC' }
+      - { code: PLC, name: Palestinian Legislative Council List, agency: 'Treasury — OFAC' }
+      - { code: SSI, name: Sectoral Sanctions Identifications List, agency: 'Treasury — OFAC' }
+      - { code: SDN, name: Specially Designated Nationals, agency: 'Treasury — OFAC' }
+    evidence: >-
+      Verbatim from the `sources` parameter description published in ITA's API Management
+      metadata for operation `search` (fetched 2026-09-05). The four BIS lists are the
+      Bureau of Industry and Security's contribution to this dataset and are the reason this
+      API is profiled under BIS.

@@ -1,0 +1,61 @@
+generated: '2026-09-05'
+method: derived
+source: >-
+  openapi/bureau-of-industry-and-security-search-api-openapi.yml (4xx/5xx responses) plus
+  live unauthenticated responses observed on https://data.trade.gov/consolidated_screening_list/v1
+  on 2026-09-05.
+format: azure-apim-envelope
+rfc9457: false
+envelope:
+  shape: '{"statusCode": <int>, "message": "<string>"}'
+  content_type: application/json
+  note: >-
+    The gateway is Azure API Management and it returns APIM's own error envelope, not
+    RFC 9457 application/problem+json. There is no error code registry, no `type` URI, and
+    no correlation id in the body — the only per-request identifier is the `x-azure-ref`
+    response header.
+  correlation_header: x-azure-ref
+problem_types:
+  - status: 401
+    title: Missing or invalid subscription key
+    observed: true
+    body: '{ "statusCode": 401, "message": "Access denied due to missing subscription key. Make sure to include subscription key when making requests to an API." }'
+    headers:
+      WWW-Authenticate: 'AzureApiManagementKey realm="https://mds-apimanager.azure-api.net/consolidated_screening_list",name="subscription-key",type="header"'
+    remediation: >-
+      Register at https://developer.trade.gov/signup, subscribe to the Data Services
+      Platform APIs product, and send the key as the `subscription-key` request header (or
+      query parameter).
+    evidence: 'GET https://data.trade.gov/consolidated_screening_list/v1/search?name=x — 2026-09-05'
+  - status: 404
+    title: Resource not found
+    observed: true
+    body: '{ "statusCode": 404, "message": "Resource not found" }'
+    remediation: >-
+      Check the version segment. The API is served at
+      /consolidated_screening_list/v1/<operation>; omitting `/v1` returns this error.
+    evidence: 'GET https://data.trade.gov/consolidated_screening_list/sources — 2026-09-05'
+  - status: 429
+    title: Rate limit exceeded
+    observed: false
+    remediation: >-
+      Back off and retry. ITA's Service Level Agreement states throttling is applied but
+      publishes no numbers and documents no Retry-After or RateLimit-* header, so a client
+      cannot compute a backoff from the response. See
+      rate-limits/bureau-of-industry-and-security-rate-limits.yml.
+    evidence: >-
+      Declared in the contract's responses for /search and /sources; not reproducible
+      anonymously because every request is rejected at 401 first.
+  - status: 403
+    title: Subscription key valid but not authorised for this product
+    observed: false
+    remediation: Subscribe the key to the Data Services Platform APIs product.
+    evidence: Standard Azure API Management behaviour; not documented by ITA.
+gaps:
+  - >-
+    No published error-code reference. The provider documents no per-error remediation, so
+    everything above 401/404 is inferred from the contract's declared response codes rather
+    than from a provider error catalogue.
+  - >-
+    No machine-readable error type identifiers. An agent cannot branch on anything more
+    specific than the HTTP status.

@@ -1,0 +1,50 @@
+generated: '2026-09-05'
+method: derived
+source: openapi/bureau-of-industry-and-security-search-api-openapi.yml
+status: candidate
+name: Consolidated Screening List (CSL) — candidate MCP tools
+description: >-
+  A DERIVED candidate tool list. Neither the Bureau of Industry and Security nor the
+  International Trade Administration publishes an MCP server for the Consolidated
+  Screening List. Third-party MCP servers wrapping this data exist on npm
+  (@pipeworx/mcp-sanctions-screening, @cyanheads/sanctions-screening-mcp-server) — they are
+  NOT first-party and are not endorsed here. The tools below are what an MCP server over
+  the real, published operations would expose; no endpoint is asserted because none exists.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: derived
+  note: >-
+    mode:none — nobody ships a server. Auth is recorded as api-key because the underlying
+    API requires an ITA `subscription-key` (header or query); any server built from this
+    candidate would have to carry one.
+tools:
+  - name: search_consolidated_screening_list
+    description: >-
+      Search the Consolidated Screening List by name, source list, party type, country or
+      address. Fuzzy name matching is available via fuzzy_name.
+    rest: searchCSL
+    method: GET
+    path: /search
+    inputSchema_source: openapi/bureau-of-industry-and-security-search-api-openapi.yml#/paths/~1search/get/parameters
+  - name: list_consolidated_screening_list_sources
+    description: >-
+      List the source lists consolidated into the CSL and their import metadata.
+    rest: listCSLSources
+    method: GET
+    path: /sources
+    inputSchema_source: openapi/bureau-of-industry-and-security-search-api-openapi.yml#/paths/~1sources/get
+unauthenticated_alternative:
+  note: >-
+    An agent with no subscription key can still read the whole dataset: the bulk export is
+    served anonymously and refreshed daily.
+  urls:
+    - https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.json
+    - https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.csv
+    - https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.tsv
+  probed: '2026-09-05'
+  status: 206
+  size_bytes: 33683407

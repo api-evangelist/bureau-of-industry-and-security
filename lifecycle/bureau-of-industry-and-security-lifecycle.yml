@@ -1,0 +1,86 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://developer.trade.gov/service-level-agreement ·
+  https://developer.trade.gov/csl-api-is-changing · https://developer.trade.gov/how-to-migrate ·
+  https://developer.trade.gov/api-changelog · https://www.bis.gov/website-updates ·
+  live TLS/HTTP probes 2026-09-05
+versioning:
+  scheme: path
+  current_version: v1
+  pattern: https://data.trade.gov/consolidated_screening_list/v1/{operation}
+  version_set: >-
+    ITA models this in Azure API Management as a version set (apiVersionSetId
+    "consolidated-screening-list", apiVersion "v1"), which is why the platform's own OpenAPI
+    export carries the unversioned server URL while the callable path includes /v1.
+  policy_published: false
+  note: No written versioning or breaking-change policy is published for this API.
+sla:
+  published: true
+  url: https://developer.trade.gov/service-level-agreement
+  uptime_target: 99.5%
+  quote: "ITA's API platform supports 99.5% uptime."
+  maintenance: >-
+    "When an outage must be scheduled, subscribers will be notified via our email
+    subscription service and through notices on the ITA API website."
+  support_contact: DataServices@trade.gov
+  probed: '2026-09-05'
+  status: 200
+status_page:
+  published: false
+  note: >-
+    No status page. status.trade.gov and status.bis.gov do not resolve; /status 404s on both
+    www.trade.gov and www.bis.gov (probed 2026-09-05). Outage notice is by email subscription
+    only, which is not machine-readable and not pollable by an agent. This record therefore
+    carries NO StatusPage pointer.
+deprecation:
+  policy_published: partial
+  headers:
+    sunset: false
+    deprecation: false
+    note: >-
+      No RFC 8594 Sunset or Deprecation response headers are emitted or documented. The one
+      retirement ITA has run was announced on a web page with a hard date, not in the protocol.
+  url: https://developer.trade.gov/csl-api-is-changing
+  migration_guide: https://developer.trade.gov/how-to-migrate
+  events:
+    - what: Retirement of the legacy CSL gateway on api.trade.gov
+      announced_at: https://developer.trade.gov/csl-api-is-changing
+      retired: '2021-12-06T17:00:00-05:00'
+      quote: "There will not be any extensions."
+      required_of_consumers: >-
+        Register on the new ITA developer portal, subscribe to the CSL API, obtain a NEW
+        API key, and change client code — old keys and old response handling do not carry over.
+      replacement: https://data.trade.gov/consolidated_screening_list/v1
+      current_state_of_retired_host: >-
+        api.trade.gov still resolves but its TLS certificate has EXPIRED (verified
+        2026-09-05: SSL certificate problem: certificate has expired). Any client still
+        pointed at the legacy base fails at the TLS handshake, not with a helpful redirect
+        or a 410. This is the single most consumer-hostile fact in this profile.
+      note: >-
+        This retirement is why apis.yml previously carried a dead baseURL. It has been
+        corrected to the live host in this pass.
+changelog:
+  published: true
+  url: https://developer.trade.gov/api-changelog
+  machine_readable: false
+  note: >-
+    The page exists and returns HTTP 200 with the title "APIs: Changelog", but the ITA
+    developer portal is an Azure API Management single-page app and the entries render
+    client-side — no dated entry could be read by an HTTP client on 2026-09-05. See
+    changelog/bureau-of-industry-and-security-changelog.yml.
+data_freshness:
+  cadence: daily
+  quote: "All the tools are updated automatically every day at 5:00 AM EST/EDT."
+  source: https://www.trade.gov/consolidated-screening-list
+  declared_in_dcat: 'accrualPeriodicity: daily (https://www.bis.gov/data.json)'
+  observed: >-
+    The bulk JSON distribution carried Last-Modified 2026-09-05T10:15:04Z when probed at
+    10:19Z on 2026-09-05 — the freshness claim holds.
+deprecated_operations: []
+bis_side:
+  note: >-
+    BIS itself publishes no API lifecycle documentation. Its site-level change log is
+    https://www.bis.gov/website-updates (HTTP 200) and its news feed is
+    https://www.bis.gov/news-updates (HTTP 200); neither covers API changes, and BIS
+    publishes no RSS/Atom feed (www.bis.gov/rss.xml 404).

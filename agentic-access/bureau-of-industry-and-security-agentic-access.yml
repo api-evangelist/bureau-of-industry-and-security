@@ -1,16 +1,23 @@
-generated: '2026-07-15'
+generated: '2026-09-05'
 method: generated
-source: openapi/bureau-of-industry-and-security-openapi.yml
-description: Recommended x-agentic-access execution contracts, classified heuristically from
-  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
-  audience per deployment. See research/curity/agentic-governance/.
+source: openapi/bureau-of-industry-and-security-search-api-openapi.yml
+description: >-
+  Recommended x-agentic-access execution contracts, classified from the OpenAPI. A governance
+  starting point for exposing this API to AI agents — review and bind audience per
+  deployment. See research/curity/agentic-governance/.
 summary:
-  operations: 1
+  operations: 2
   by_action_class:
-    connected: 1
+    connected: 2
   by_consequence:
-    read: 1
+    read: 2
   human_in_the_loop_required: 0
+  note: >-
+    The entire published surface is read-only, so no operation carries a write consequence,
+    needs an escalation path, or can be replayed destructively. The governance risk here is
+    not state change — it is the personal data in the response and the compliance weight of
+    the answer. A screening result is an aid to due diligence, not a determination, and an
+    agent must not be allowed to close out a compliance decision on it alone.
 operations:
 - path: /search
   method: get
@@ -21,4 +28,20 @@ operations:
     subject: optional
     token:
       max-ttl: 3600
+    audit: recommended
+    data-sensitivity: personal-data
+    notes: >-
+      Responses may contain records about identified individuals — names, dates of birth,
+      places of birth, nationalities and identity document numbers. Log the query, not the
+      response body.
+- path: /sources
+  method: get
+  operationId: listCSLSources
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: none
+    token:
+      max-ttl: 3600
     audit: none
+    data-sensitivity: none

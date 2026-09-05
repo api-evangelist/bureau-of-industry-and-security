@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Consolidated Screening List (CSL) Search API
   version: '1.0'
@@ -26,11 +26,32 @@ info:
   license:
     name: U.S. Government Work
     url: https://www.usa.gov/government-works
+  x-provenance:
+    method: searched
+    fetched: '2026-09-05'
+    sources:
+    - https://developer.trade.gov/developer/apis/consolidated-screening-list?api-version=2022-04-01-preview&export=true&format=openapi
+    - https://developer.trade.gov/developer/apis/consolidated-screening-list/operations?api-version=2022-04-01-preview
+    - https://developer.trade.gov/developer/apis/consolidated-screening-list/operations/search?api-version=2022-04-01-preview
+    - https://developer.trade.gov/developer/apis/consolidated-screening-list/schemas/61afee21fa78fe127ced7a88?api-version=2022-04-01-preview
+    - https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.json
+    note: Paths, methods, query parameters, parameter descriptions and enum values are verbatim from the
+      International Trade Administration Azure API Management operations metadata (anonymous, 2026-09-05).
+      Response property names are taken from the anonymously readable bulk download of the same dataset.
+      Nothing here is invented.
+  x-operator:
+    operated_by: International Trade Administration (ITA), U.S. Department of Commerce
+    contributing_agency: Bureau of Industry and Security (BIS), U.S. Department of Commerce
+    note: 'The Consolidated Screening List API is operated by ITA on data.trade.gov. BIS is a contributing
+      agency: the API''s own `sources` enum documents DPL, EL, MEU and UVL under "Department of Commerce
+      - Bureau of Industry and Security (BIS)". This profile is filed under BIS for that reason; the callable
+      host belongs to ITA.'
 servers:
 - url: https://data.trade.gov/consolidated_screening_list/v1
   description: Production
 security:
 - subscriptionKey: []
+- subscriptionKeyQuery: []
 tags:
 - name: Search
   description: Search the Consolidated Screening List
@@ -51,60 +72,111 @@ paths:
       parameters:
       - name: name
         in: query
-        description: Name of an individual or entity to search for.
+        description: Searches against the name and alt_names fields.
         schema:
           type: string
       - name: fuzzy_name
         in: query
-        description: When true, applies fuzzy name matching.
+        description: 'Set fuzzy_name=true to utilize fuzzy name matching. Fuzzy name matching enables
+          users to query a name and get usable results without knowing the exact spelling of an entry.
+          The fuzzy_name parameter only works in tandem with name. Fuzzy search filters out the following
+          common words: co, company, corp, corporation, inc, incorporated, limited, ltd, mrs, ms, mr,
+          organization, sa, sas, llc, university, and univ. For example, ''Water Corporation'' returns
+          the same results as ''Water'' because ''Corporation'' is one of the common words.'
         schema:
-          type: boolean
-          default: false
+          type: string
+          enum:
+          - ''
+          - 'true'
       - name: sources
         in: query
-        description: Comma-separated list of source list codes (e.g., SDN, EL, DPL).
+        description: 'Searches only the lists specified by the Source Abbreviation. <br /> <br /> Department
+          of Commerce – Bureau of Industry and Security (BIS): <br /> * <b>DPL</b> - Denied Persons List
+          <br /> * <b>EL</b> - Entity List <br /> * <b>MEU</b> - Military End User<br /> * <b>UVL</b>
+          - Unverified List <br /> <br /> Department of State – Bureau of International Security and Non-Proliferation:
+          <br /> * <b>ISN</b> - Nonproliferation Sanctions <br /> <br /> Department of State – Directorate
+          of Defense Trade Controls: <br /> * <b>DTC</b> - ITAR Debarred <br /> <br /> Department of Treasury
+          - Office of Foreign Assets Control: <br /> * <b>CAP</b> - Correspondent Account or Payable-Through
+          Account Sanctions (CAPTA) <br /> * <b>CMIC</b> - Non-SDN Chinese Military-Industrial Complex
+          Companies List - Treasury Department <br /> * <b>FSE</b> - Foreign Sanctions Evaders <br />
+          * <b>MBS</b> - Non-SDN Menu-Based Sanctions List (NS-MBS List) <br /> * <b>PLC</b> - Palestinian
+          Legislative Council List <br /> * <b>SSI</b> - Sectoral Sanctions Identifications List <br />
+          * <b>SDN</b> - Specially Designated Nationals <br />'
         schema:
           type: string
+          enum:
+          - CAP
+          - CMIC
+          - DPL
+          - DTC
+          - EL
+          - FSE
+          - ISN
+          - MBS
+          - MEU
+          - PLC
+          - SDN
+          - SSI
+          - UVL
       - name: types
         in: query
-        description: Comma-separated list of party types (Individual, Entity, Vessel, Aircraft).
+        description: Searches only entries specified by the type.
         schema:
           type: string
+          enum:
+          - Aircraft
+          - Entity
+          - Individual
+          - Vessel
       - name: countries
         in: query
-        description: Comma-separated list of ISO 3166-1 alpha-2 country codes.
+        description: Searches only entities whose country, nationalities, or citizenships fields match
+          the country code based on ISO alpha-2 country codes. The country fields are found in the addresses
+          and ids arrays. This method allows you to search for multiple countries (plural) separated by
+          commas but will only return one country (singular) per entity.
         schema:
           type: string
       - name: address
         in: query
-        description: Street address fragment to search.
+        description: Searches against the address field in the addresses array.
         schema:
           type: string
       - name: city
         in: query
         schema:
           type: string
+        description: Searches against the city field in the addresses array.
       - name: state
         in: query
         schema:
           type: string
+        description: Searches against the state field in the addresses array.
       - name: postal_code
         in: query
         schema:
           type: string
+        description: Searches against the postal field in the addresses array.
+      - name: full_address
+        in: query
+        description: Searches against address, city, state, and postal_code fields in the addresses array.
+          If this parameter is present, individual address, city, state, and postal_code parameters will
+          be ignored.
+        schema:
+          type: string
       - name: size
         in: query
-        description: Number of results to return (max 100).
+        description: The size parameter allows you to configure the number of results to be returned up
+          to a maximum of 50.
         schema:
           type: integer
-          default: 10
-          maximum: 100
+          maximum: 50
       - name: offset
         in: query
-        description: Result offset for pagination.
+        description: The offset parameter defines the offset from the first result you want to fetch.
+          This value cannot be greater than 1000.
         schema:
           type: integer
-          default: 0
+          maximum: 1000
       responses:
         '200':
           description: Search results
@@ -112,6 +184,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SearchResponse'
+        '401':
+          description: Missing or invalid subscription-key.
+        '429':
+          description: Rate limit exceeded.
+  /sources:
+    get:
+      tags:
+      - Search
+      summary: List the source lists consolidated by the CSL
+      description: Returns the source lists that make up the Consolidated Screening List and when each
+        was last imported. Declared as operation `sources` in the ITA API Management operations metadata
+        for this API.
+      operationId: listCSLSources
+      parameters: []
+      responses:
+        '200':
+          description: The source lists consolidated by the CSL and their import metadata.
+          content:
+            application/json:
+              schema:
+                type: object
         '401':
           description: Missing or invalid subscription-key.
         '429':
@@ -131,6 +224,27 @@ components:
           type: string
         country:
           type: string
+    SearchResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+        sources_used:
+          type: array
+          items:
+            type: object
+            properties:
+              source:
+                type: string
+              source_last_updated:
+                type: string
+                format: date-time
+              import_rate:
+                type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
     Result:
       type: object
       properties:
@@ -236,30 +350,20 @@ components:
           type: array
           items:
             type: string
-    SearchResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-        sources_used:
+        programs:
           type: array
           items:
-            type: object
-            properties:
-              source:
-                type: string
-              source_last_updated:
-                type: string
-                format: date-time
-              import_rate:
-                type: string
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result'
+            type: string
+          description: Sanctions or control programs the entry falls under (observed in the CSL bulk download).
   securitySchemes:
     subscriptionKey:
       type: apiKey
       in: header
       name: subscription-key
       description: Subscription key issued by developer.trade.gov
+    subscriptionKeyQuery:
+      type: apiKey
+      in: query
+      name: subscription-key
+      description: Subscription key issued by developer.trade.gov, passed as a query string parameter.
+        Declared by the ITA APIM export alongside the header variant.

@@ -1,0 +1,102 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  International Trade Administration API Management operation metadata
+  (https://developer.trade.gov/developer/apis/consolidated-screening-list/operations/search?api-version=2022-04-01-preview) ·
+  https://developer.trade.gov/service-level-agreement · live responses observed on
+  https://data.trade.gov/consolidated_screening_list/v1 on 2026-09-05 ·
+  openapi/bureau-of-industry-and-security-search-api-openapi.yml
+description: >-
+  Cross-cutting runtime semantics for the Consolidated Screening List API — the only
+  callable surface in this profile. SNAP-R and STELA are BIS-operated web applications with
+  no published machine interface and are out of scope here.
+auth:
+  style: api-key
+  parameter: subscription-key
+  location: [header, query]
+  obtained_at: https://developer.trade.gov/signup
+  approval_required: false
+  challenge: >-
+    HTTP 401 with WWW-Authenticate: AzureApiManagementKey realm="...",
+    name="subscription-key", type="header"
+  cross_reference: authentication/bureau-of-industry-and-security-authentication.yml
+idempotency:
+  coverage: none
+  applicability: na
+  scope: []
+  header: null
+  note: >-
+    NOT APPLICABLE, not missing. The published surface is read-only: two GET operations
+    (searchCSL, listCSLSources) and three static bulk downloads. There is no mutating
+    request for a replay-protection mechanism to protect, so `na` is the honest verdict and
+    this record deliberately carries NO Idempotency pointer in apis.yml.
+reversibility:
+  applicability: na
+  grade: na
+  note: >-
+    No write surface exists, so there is nothing to reverse. Recording `na` rather than a
+    zero: an agent calling this API cannot take an action that needs taking back.
+  write_surfaces: []
+dry_run_mode:
+  applicability: na
+  note: Read-only surface; a rehearsal mode would be meaningless.
+pagination:
+  style: offset-limit
+  params:
+    offset:
+      name: offset
+      max: 1000
+      quote: "The offset parameter defines the offset from the first result you want to fetch. This value cannot be greater than 1000."
+    size:
+      name: size
+      max: 50
+      quote: "The size parameter allows you to configure the number of results to be returned up to a maximum of 50."
+  response_fields:
+    total: total
+    results: results
+  ceiling_note: >-
+    offset max 1000 and size max 50 together cap paginated retrieval at roughly the first
+    1,050 matches. An agent that needs the whole list must use the bulk download, not
+    pagination — this is a real and undocumented consequence of the two published ceilings.
+  cursor: false
+field_expansion:
+  supported: false
+sparse_fieldsets:
+  supported: false
+metadata:
+  user_supplied: false
+request_tracing:
+  request_id_header: null
+  response_correlation_header: x-azure-ref
+  note: >-
+    The gateway returns an `x-azure-ref` correlation value on every response, including
+    errors. It is not documented by ITA, and there is no client-supplied request-id header.
+versioning:
+  style: path
+  current: v1
+  cross_reference: lifecycle/bureau-of-industry-and-security-lifecycle.yml
+error_envelope:
+  shape: '{"statusCode": <int>, "message": "<string>"}'
+  rfc9457: false
+  cross_reference: errors/bureau-of-industry-and-security-problem-types.yml
+rate_limit_signaling:
+  headers_published: false
+  documented_numbers: false
+  quote: >-
+    "ITA has instituted throttling levels on our APIs. Subscribers may find the individual
+    throttling levels on the documentation pages of the specific APIs."
+  quote_source: https://developer.trade.gov/service-level-agreement
+  note: >-
+    The SLA asserts throttling exists and defers the numbers to per-API documentation pages,
+    which render client-side and publish none. No RateLimit-* or Retry-After header is
+    documented or observed. An agent has no runtime signal to back off from.
+  cross_reference: rate-limits/bureau-of-industry-and-security-rate-limits.yml
+content_negotiation:
+  formats: [application/json]
+  bulk_formats: [application/json, text/csv, text/tab-separated-values]
+caching:
+  api: not documented
+  bulk: >-
+    The bulk distributions serve `Cache-Control: no-store, must-revalidate, no-cache` with a
+    strong ETag and Last-Modified — conditional requests work, but the no-store directive
+    tells intermediaries not to keep a copy of a 33 MB file.

@@ -1,16 +1,75 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/bureau-of-industry-and-security-openapi.yml
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://developer.trade.gov/developer/apis/consolidated-screening-list?api-version=2022-04-01-preview&export=true&format=openapi
+  (ITA API Management, anonymous, 2026-09-05) · live 401 challenge from
+  https://data.trade.gov/consolidated_screening_list/v1/search · https://developer.trade.gov/signup
+docs: https://developer.trade.gov/api-details#api=consolidated-screening-list&operation=search
 summary:
   types:
-  - apiKey
+    - apiKey
   api_key_in:
-  - header
+    - header
+    - query
+  oauth2: false
+  openid_connect: false
+  mutual_tls: false
 schemes:
-- name: subscriptionKey
-  type: apiKey
-  in: header
-  parameter: subscription-key
-  description: Subscription key issued by developer.trade.gov
-  sources:
-  - openapi/bureau-of-industry-and-security-openapi.yml
+  - name: subscriptionKey
+    type: apiKey
+    in: header
+    parameter: subscription-key
+    description: >-
+      Subscription key issued by the International Trade Administration Data Services
+      Platform, sent as a request header. This is the variant ITA's own 401 challenge names.
+    sources:
+      - openapi/bureau-of-industry-and-security-search-api-openapi.yml
+      - openapi/_original/bureau-of-industry-and-security-csl-apim-export.yaml
+  - name: subscriptionKeyQuery
+    type: apiKey
+    in: query
+    parameter: subscription-key
+    description: >-
+      The same subscription key sent as a query-string parameter. Declared by ITA's own
+      OpenAPI export as `apiKeyQuery`. A key in a URL is logged by proxies, browsers and
+      server access logs — prefer the header.
+    sources:
+      - openapi/_original/bureau-of-industry-and-security-csl-apim-export.yaml
+challenge:
+  status: 401
+  header: >-
+    WWW-Authenticate: AzureApiManagementKey
+    realm="https://mds-apimanager.azure-api.net/consolidated_screening_list",
+    name="subscription-key", type="header"
+  body: '{ "statusCode": 401, "message": "Access denied due to missing subscription key. Make sure to include subscription key when making requests to an API." }'
+  observed: '2026-09-05'
+onboarding:
+  sign_up: https://developer.trade.gov/signup
+  sign_in: https://developer.trade.gov/signin
+  approval_required: false
+  cost: free
+  subscriptions_limit: 1
+  steps:
+    - Register an account on the ITA Data Services Platform.
+    - Subscribe to the "Data Services Platform APIs" product.
+    - Send the issued key as the `subscription-key` header on every request.
+  note: >-
+    Self-serve with no approval gate — verified from the product catalogue
+    (approvalRequired: false), not from marketing copy.
+unauthenticated_surface:
+  exists: true
+  note: >-
+    The full dataset is readable with no credential at
+    https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.{json,csv,tsv}
+    (HTTP 206 on a ranged request, 2026-09-05). Only the query API requires a key.
+scopes:
+  supported: false
+  note: >-
+    A subscription key carries no scopes, no audience and no expiry. There is nothing to
+    delegate and nothing to narrow, so scopes/ is deliberately absent from this repository
+    rather than written empty.
+rotation:
+  documented: false
+  note: >-
+    Azure API Management issues a primary and secondary key per subscription, which makes
+    zero-downtime rotation possible, but ITA documents no rotation guidance.

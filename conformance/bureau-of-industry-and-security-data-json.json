@@ -1,0 +1,70 @@
+{
+  "@type": "Catalog",
+  "conformsTo": {
+    "@type": "Standard",
+    "title": "DCAT-US 3.0",
+    "identifier": "https://resources.data.gov/dcat-us/3.0.0"
+  },
+  "dataset": [
+    {
+      "accessLevel": "public",
+      "accessRights": "public",
+      "accrualPeriodicity": "daily",
+      "bureauCode": [
+        "006:30"
+      ],
+      "contactPoint": {
+        "fn": "REDACTED_BY_API_EVANGELIST (named individual)",
+        "hasEmail": "mailto:REDACTED_BY_API_EVANGELIST"
+      },
+      "description": "The Consolidated Screening List API consolidates eleven export screening lists of the Departments of Commerce, State and the Treasury into a single data feed as an aid to industry in conducting electronic screens of potential parties to regulated transactions.",
+      "identifier": "https://www.trade.gov/consolidated-screening-list",
+      "distribution": [
+        {
+          "title": "Consolidated Screening List JSON",
+          "downloadURL": "https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.json",
+          "format": "JSON"
+        },
+        {
+          "title": "Consolidated Screening List CSV",
+          "downloadURL": "https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.csv",
+          "mediaType": "text/csv"
+        },
+        {
+          "title": "Consolidated Screening List TSV",
+          "downloadURL": "https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.tsv",
+          "mediaType": "text/tab-separated-values"
+        }
+      ],
+      "keyword": [
+        "consolidated screening list",
+        "denied persons list",
+        "entity list"
+      ],
+      "language": [
+        "en"
+      ],
+      "modified": "2020-07-29T17:53:58Z",
+      "programCode": [
+        " "
+      ],
+      "publisher": {
+        "name": "International Trade Administration"
+      },
+      "spatial": [
+        {
+          "@type": "Location",
+          "prefLabel": "United States"
+        }
+      ],
+      "title": "Consolidated Screening List"
+    }
+  ],
+  "x-api-evangelist": {
+    "method": "searched",
+    "fetched": "2026-09-05",
+    "source": "https://www.bis.gov/data.json",
+    "http_status": 200,
+    "note": "Verbatim copy of the DCAT-US 3.0 catalog the Bureau of Industry and Security serves at https://www.bis.gov/data.json, with one change: the dataset contactPoint named a individual federal employee by name and email, and API Evangelist redacts personal contact details out of harvested artifacts. Nothing else was altered."
+  }
+}
