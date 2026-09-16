@@ -57,49 +57,6 @@ description: >-
   system. BIS maintains the Commerce Control List (CCL), administers the
   Consolidated Screening List (CSL), and operates the SNAP-R licensing system.
 apis:
-- aid: bureau-of-industry-and-security:consolidated-screening-list-api
-  name: Consolidated Screening List (CSL) API
-  tags:
-  - Compliance
-  - Export Controls
-  - Federal-Government
-  - Sanctions
-  - Screening
-  tags_raw:
-  - Compliance
-  - Export Controls
-  - Federal Government
-  - Sanctions
-  - Screening
-  humanURL: https://www.trade.gov/consolidated-screening-list
-  baseURL: https://data.trade.gov/consolidated_screening_list/v1
-  properties:
-  - url: https://www.trade.gov/consolidated-screening-list
-    type: Documentation
-  - url: https://data.trade.gov/consolidated_screening_list/v1/search
-    type: DataAPI
-  - url: openapi/_original/bureau-of-industry-and-security-csl-apim-export.yaml
-    type: OpenAPI
-  - url: https://developer.trade.gov/api-details#api=consolidated-screening-list&operation=search
-    type: APIReference
-  - url: https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.json
-    type: X-BulkData
-  description: >-
-    The Consolidated Screening List (CSL) API consolidates export screening lists from the Departments
-    of Commerce, State, and Treasury. It includes the Entity List, Denied Persons List, Unverified List
-    (BIS), ITAR Debarred List (State), SDN List, and others. Used for trade compliance and due diligence
-    screening.
-  x-features:
-  - Consolidated view of multiple export control screening lists
-  - Full-text search by name, country, and address
-  - Fuzzy name matching for due diligence
-  - REST API with JSON responses
-  - API key authentication via api.data.gov
-  x-use-cases:
-  - Export compliance screening before transactions
-  - Automated trade partner due diligence
-  - Sanctions and embargo verification
-  - Regulatory compliance workflows
 - aid: bureau-of-industry-and-security:snap-r
   name: SNAP-R Export License Application System
   tags:
