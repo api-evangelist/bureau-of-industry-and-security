@@ -4,7 +4,7 @@ url: >-
 name: Bureau of Industry and Security
 tags:
   - Compliance
-  - Export Controls
+  - Export Control
   - Federal-Government
   - Industries
   - National Security
@@ -60,7 +60,7 @@ apis:
 - aid: bureau-of-industry-and-security:snap-r
   name: SNAP-R Export License Application System
   tags:
-  - Export Controls
+  - Export Control
   - Federal-Government
   - Licensing
   tags_raw:
@@ -77,7 +77,7 @@ apis:
 - aid: bureau-of-industry-and-security:stela
   name: STELA Export License Tracking
   tags:
-  - Export Controls
+  - Export Control
   - Federal-Government
   - Licensing
   - Tracking
