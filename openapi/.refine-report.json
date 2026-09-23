@@ -1,6 +1,8 @@
 {
   "provider": "bureau-of-industry-and-security",
   "sources": [
+    "_original/bureau-of-industry-and-security-csl-apim-export.yaml",
+    "_original/bureau-of-industry-and-security-openapi.yml",
     "bureau-of-industry-and-security-search-api-openapi.yml"
   ],
   "outputs": [
@@ -8,9 +10,14 @@
   ],
   "archived": [],
   "errors": [],
-  "warnings": [],
+  "warnings": [
+    "bureau-of-industry-and-security-search-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /sources get); its other 1 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
   "notes": [
-    "bureau-of-industry-and-security-search-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "bureau-of-industry-and-security-csl-apim-export.yaml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "bureau-of-industry-and-security-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tag 'Search' spans 2 source specs (bureau-of-industry-and-security-openapi.yml, bureau-of-industry-and-security-search-api-openapi.yml): per-path servers applied",
     "apis.yml register: already-registered"
   ],
   "skipped": []
