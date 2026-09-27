@@ -129,6 +129,19 @@ paths:
       - subscriptionKeyQuery: []
 components:
   schemas:
+    Address:
+      type: object
+      properties:
+        address:
+          type: string
+        city:
+          type: string
+        state_or_province:
+          type: string
+        postal_code:
+          type: string
+        country:
+          type: string
     Result:
       type: object
       properties:
@@ -234,19 +247,6 @@ components:
           type: array
           items:
             type: string
-    Address:
-      type: object
-      properties:
-        address:
-          type: string
-        city:
-          type: string
-        state_or_province:
-          type: string
-        postal_code:
-          type: string
-        country:
-          type: string
     SearchResponse:
       type: object
       properties:

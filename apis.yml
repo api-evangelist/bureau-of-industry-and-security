@@ -5,7 +5,7 @@ name: Bureau of Industry and Security
 tags:
   - Compliance
   - Export Control
-  - Federal-Government
+  - Federal Government
   - Industries
   - National Security
   - Screening Lists
@@ -18,6 +18,7 @@ tags_raw:
   - National Security
   - Screening Lists
   - Security
+  - Federal-Government
 type: Index
 kind: government
 deliveryModel:
@@ -61,12 +62,13 @@ apis:
   name: SNAP-R Export License Application System
   tags:
   - Export Control
-  - Federal-Government
+  - Federal Government
   - Licensing
   tags_raw:
   - Export Controls
   - Federal Government
   - Licensing
+  - Federal-Government
   humanURL: https://snapr.bis.doc.gov/
   properties:
   - url: https://www.bis.gov/licensing/how-to-apply-snap-r
@@ -78,7 +80,7 @@ apis:
   name: STELA Export License Tracking
   tags:
   - Export Control
-  - Federal-Government
+  - Federal Government
   - Licensing
   - Tracking
   tags_raw:
@@ -86,6 +88,7 @@ apis:
   - Federal Government
   - Licensing
   - Tracking
+  - Federal-Government
   humanURL: https://www.bis.gov/licensing/stela
   properties:
   - url: https://www.bis.gov/licensing/stela
