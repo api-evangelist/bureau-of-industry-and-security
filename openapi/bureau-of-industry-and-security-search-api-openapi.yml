@@ -129,6 +129,27 @@ paths:
       - subscriptionKeyQuery: []
 components:
   schemas:
+    SearchResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+        sources_used:
+          type: array
+          items:
+            type: object
+            properties:
+              source:
+                type: string
+              source_last_updated:
+                type: string
+                format: date-time
+              import_rate:
+                type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
     Result:
       type: object
       properties:
@@ -247,27 +268,6 @@ components:
           type: string
         country:
           type: string
-    SearchResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-        sources_used:
-          type: array
-          items:
-            type: object
-            properties:
-              source:
-                type: string
-              source_last_updated:
-                type: string
-                format: date-time
-              import_rate:
-                type: string
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result'
   securitySchemes:
     subscriptionKey:
       type: apiKey
