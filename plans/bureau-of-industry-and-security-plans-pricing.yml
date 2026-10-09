@@ -59,3 +59,16 @@ bis_operated_systems:
   note: >-
     SNAP-R and STELA are BIS-operated licensing systems. They are free to use but require a
     BIS account and publish no API and no plans; they are not represented here.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  units: []
+  plans:
+  - name: Data Services Platform APIs
+    access: free
+    model: free
+    model_how: derived
+    units: []
+    periods: []
