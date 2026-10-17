@@ -129,27 +129,19 @@ paths:
       - subscriptionKeyQuery: []
 components:
   schemas:
-    SearchResponse:
+    Address:
       type: object
       properties:
-        total:
-          type: integer
-        sources_used:
-          type: array
-          items:
-            type: object
-            properties:
-              source:
-                type: string
-              source_last_updated:
-                type: string
-                format: date-time
-              import_rate:
-                type: string
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result'
+        address:
+          type: string
+        city:
+          type: string
+        state_or_province:
+          type: string
+        postal_code:
+          type: string
+        country:
+          type: string
     Result:
       type: object
       properties:
@@ -255,19 +247,27 @@ components:
           type: array
           items:
             type: string
-    Address:
+    SearchResponse:
       type: object
       properties:
-        address:
-          type: string
-        city:
-          type: string
-        state_or_province:
-          type: string
-        postal_code:
-          type: string
-        country:
-          type: string
+        total:
+          type: integer
+        sources_used:
+          type: array
+          items:
+            type: object
+            properties:
+              source:
+                type: string
+              source_last_updated:
+                type: string
+                format: date-time
+              import_rate:
+                type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
   securitySchemes:
     subscriptionKey:
       type: apiKey
