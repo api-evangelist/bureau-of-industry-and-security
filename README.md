@@ -1,4 +1,4 @@
-# Bureau of Industry and Security (bureau-of-industry-and-security)
+# Bureau of Industry and Security
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,100 +66,134 @@
 
 The Bureau of Industry and Security (BIS), a division of the U.S. Department of Commerce, advances U.S. national security, foreign policy, and economic objectives by administering an effective export control and treaty compliance system. BIS maintains the Commerce Control List (CCL), administers the Consolidated Screening List (CSL), and operates the SNAP-R licensing system.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/bureau-of-industry-and-security/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/bureau-of-industry-and-security/refs/heads/main/apis.yml)
+**Areas:** Compliance · Export Control · Federal Government · Industries · National Security · Screening Lists · Security
 
-## Scope
+## Bureau of Industry and Security on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Bureau of Industry and Security is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/bureau-of-industry-and-security/](https://apis.io/providers/bureau-of-industry-and-security/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (3)
 
-- Compliance
-- Export Controls
-- Federal Government
-- Industries
-- National Security
-- Screening Lists
-- Security
+- [SNAP-R Export License Application System](https://apis.io/apis/bureau-of-industry-and-security/snap-r/) — SNAP-R (Simplified Network Application Process Redesign) is the BIS online system for applying for export licenses, classifications, and authorizations…
+- [STELA Export License Tracking](https://apis.io/apis/bureau-of-industry-and-security/stela/) — STELA (System for Tracking Export License Applications) allows applicants to check the status of export license applications submitted to BIS.
+- [Bureau of Industry and Security Search API](https://apis.io/apis/bureau-of-industry-and-security/bureau-of-industry-and-security-search-api/) — Search the Consolidated Screening List
 
-## Timestamps
+### Published properties
 
-- **Created:** 2024-11-25
-- **Modified:** 2026-04-21
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### Consolidated Screening List (CSL) API
+Model Context Protocol servers that expose the API to agents.
 
-The Consolidated Screening List (CSL) API consolidates export screening lists from the Departments of Commerce, State, and Treasury. It includes the Entity List, Denied Persons List, Unverified List (BIS), ITAR Debarred List (State), SDN List, and others. Used for trade compliance and due diligence screening.
+- [Consolidated Screening List (CSL) — candidate MCP tools](https://apis.io/servers/bureau-of-industry-and-security/consolidated-screening-list-csl-candidate-mcp-tools/)
 
-- **Human URL:** [https://www.trade.gov/consolidated-screening-list](https://www.trade.gov/consolidated-screening-list)
-- **Base URL:** `https://api.trade.gov/gateway/v1/consolidated_screening_list`
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Compliance
-- Export Controls
-- Federal Government
-- Sanctions
-- Screening
+- [Bureau Of Industry And Security Agentic Access](https://apis.io/agentic-access/bureau-of-industry-and-security/bureau-of-industry-and-security-agentic-access/)
 
-#### Properties
+#### Collections (2)
 
-- [Documentation](https://www.trade.gov/consolidated-screening-list)
-- [Data A P I](https://api.trade.gov/gateway/v1/consolidated_screening_list/search)
-- [Postman Collection](collections/bureau-of-industry-and-security.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/bureau-of-industry-and-security.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-### SNAP-R Export License Application System
+- [Consolidated Screening List (CSL) API](https://apis.io/collections/bureau-of-industry-and-security/open-bureau-of-industry-and-security/)
+- [Consolidated Screening List (CSL) Search API](https://apis.io/collections/bureau-of-industry-and-security/open-bureau-of-industry-and-security-search-api/)
 
-SNAP-R (Simplified Network Application Process Redesign) is the BIS online system for applying for export licenses, classifications, and authorizations under the Export Administration Regulations (EAR).
+#### Overlays (1)
 
-- **Human URL:** [https://snapr.bis.doc.gov/](https://snapr.bis.doc.gov/)
+OpenAPI overlays, including conversational phrasing for each operation.
 
-#### Tags
+- [Bureau Of Industry And Security Search Api Overlay](https://apis.io/overlays/bureau-of-industry-and-security/bureau-of-industry-and-security-search-api-overlay/)
 
-- Export Controls
-- Federal Government
-- Licensing
+#### Security (2)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [Documentation](https://www.bis.gov/licensing/how-to-apply-snap-r)
-- [Postman Collection](collections/bureau-of-industry-and-security.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/bureau-of-industry-and-security.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Bureau Of Industry And Security Authentication](https://apis.io/security/bureau-of-industry-and-security/bureau-of-industry-and-security-authentication/)
+- [Bureau Of Industry And Security Domain Security](https://apis.io/security/bureau-of-industry-and-security/bureau-of-industry-and-security-domain-security/)
 
-### STELA Export License Tracking
+#### Plans and pricing (1)
 
-STELA (System for Tracking Export License Applications) allows applicants to check the status of export license applications submitted to BIS.
+Published plans, tiers and prices.
 
-- **Human URL:** [https://www.bis.gov/licensing/stela](https://www.bis.gov/licensing/stela)
+- [Bureau Of Industry And Security Plans Pricing](https://apis.io/plans/bureau-of-industry-and-security/bureau-of-industry-and-security-plans-pricing/)
 
-#### Tags
+#### Rate limits (1)
 
-- Export Controls
-- Federal Government
-- Licensing
-- Tracking
+Published request limits.
 
-#### Properties
+- [Bureau Of Industry And Security Rate Limits](https://apis.io/rate-limits/bureau-of-industry-and-security/bureau-of-industry-and-security-rate-limits/)
 
-- [Documentation](https://www.bis.gov/licensing/stela)
-- [Postman Collection](collections/bureau-of-industry-and-security.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/bureau-of-industry-and-security.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### FinOps (1)
 
-## Common Properties
+What the API costs to run, by operation.
 
-- [LinkedIn](https://www.linkedin.com/company/bureau-of-industry-and-security-u-s-department-of-commerce)
+- [Bureau Of Industry And Security Finops](https://apis.io/finops/bureau-of-industry-and-security/bureau-of-industry-and-security-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.bis.gov)
-- [Privacy Policy](https://www.bis.gov/privacy-policy)
-- [Consolidated  Screening  List](https://www.trade.gov/consolidated-screening-list)
-- [Export  Administration  Regulations](https://www.bis.gov/regulations/export-administration-regulations-ear)
-- [Commerce  Control  List](https://www.bis.gov/regulations/commerce-control-list-ccl)
+- [Sign up](https://developer.trade.gov/signup)
+- [Support](https://www.bis.gov/about-bis/contact-us)
+- [Changelog](https://developer.trade.gov/api-changelog)
+- [Blog](https://www.bis.gov/news-updates)
+- [Privacy policy](https://www.bis.gov/privacy-policy)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 46.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 51.4 |
+| Contract governance | 18.2 |
+| Operational transparency | 23.7 |
+| Developer ergonomics | 54.2 |
+| Access clarity | 44.7 |
+
+**Agent readiness 32.6** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 20.6** — Government & Public Sector
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/bureau-of-industry-and-security/](https://apis.io/providers/bureau-of-industry-and-security/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Bureau of Industry and Security: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/bureau-of-industry-and-security/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
