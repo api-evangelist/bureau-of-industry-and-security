@@ -1,0 +1,74 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Bureau of Industry and Security
+providerId: bureau-of-industry-and-security
+generated: '2026-09-05'
+method: probed
+source: >-
+  https://developer.trade.gov/developer/products?api-version=2022-04-01-preview (the
+  International Trade Administration's own Azure API Management product catalogue, read
+  anonymously 2026-09-05) · https://developer.trade.gov/signup ·
+  https://developer.trade.gov/service-level-agreement
+created: '2026-05-04'
+modified: '2026-09-05'
+supersedes: >-
+  A 2026-05-04 bulk-sweep scaffold that asserted a "Free" tier with a 1,000-requests-per-month
+  quota and per-tier pricing. NONE OF THAT WAS PUBLISHED BY THE PROVIDER and it has been
+  removed. What follows is read from the provider's machine-readable product catalogue.
+description: >-
+  The Consolidated Screening List API is free of charge. Access is governed by a single
+  Azure API Management product, not by pricing tiers.
+plan_count: 1
+pricing_model: free-government-data
+currency: USD
+plans:
+  - id: odp-public-apis
+    name: Data Services Platform APIs
+    description: >-
+      The only product on the International Trade Administration Data Services Platform. All
+      six ITA APIs, including the Consolidated Screening List, are attached to it.
+    price: '0.00'
+    currency: USD
+    billing_period: none
+    type: free
+    subscription_required: true
+    approval_required: false
+    subscriptions_limit: 1
+    onboarding: self-serve
+    sign_up: https://developer.trade.gov/signup
+    included_quota: null
+    overage: null
+    limits:
+      note: >-
+        The product declares no quota in the platform catalogue. The Service Level Agreement
+        states throttling is applied and defers the numbers to per-API documentation pages,
+        which publish none. See rate-limits/bureau-of-industry-and-security-rate-limits.yml.
+    evidence: >-
+      GET https://developer.trade.gov/developer/products?api-version=2022-04-01-preview →
+      {"id":"odp-public-apis","name":"Data Services Platform APIs","terms":null,
+      "subscriptionRequired":true,"approvalRequired":false,"subscriptionsLimit":1}
+      (HTTP 200, 2026-09-05)
+free_alternative:
+  note: >-
+    The same dataset is downloadable in full with no account and no key at
+    https://data.trade.gov/downloadable_consolidated_screening_list/v1/consolidated.json
+    (JSON, CSV and TSV), refreshed daily. For many screening workloads this removes the need
+    for a plan entirely.
+bis_operated_systems:
+  note: >-
+    SNAP-R and STELA are BIS-operated licensing systems. They are free to use but require a
+    BIS account and publish no API and no plans; they are not represented here.
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - free
+  units: []
+  plans:
+  - name: Data Services Platform APIs
+    access: free
+    model: free
+    model_how: derived
+    units: []
+    periods: []
